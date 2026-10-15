@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Flashcards App</title>
+    <script src="app.js" defer></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="app-container">
+
+        <header class="header">
+            <h1>Flashcards</h1>
+            <button class="add-button" id="addDeckButton">+ New Deck</button>
+        </header>
+
+        <aside class="sidebar">
+    <h2>My Decks</h2>
+    <ul class="deck-list" id="deckList"></ul>
+</aside>
+
+<!-- Main content -->
+
+<main class="main-content">
+    <h2 id="deckTitle">Select a deck</h2>
+
+    <button type="button" id="addCardButton" disabled>
+        + New Card
+    </button>
+
+    <form id="cardForm" class="card-editor" hidden>
+        <h3 id="cardFormTitle">Create flashcard</h3>
+
+        <div>
+            <label for="cardQuestion">Question</label>
+            <textarea
+                id="cardQuestion"
+                required
+                maxlength="500"
+            ></textarea>
+        </div>
+
+        <div>
+            <label for="cardAnswer">Answer</label>
+            <textarea
+                id="cardAnswer"
+                required
+                maxlength="500"
+            ></textarea>
+        </div>
+
+        <p id="cardFormError" role="alert"></p>
+
+        <div class="card-actions">
+            <button type="submit">Save card</button>
+            <button type="button" id="cancelCardButton">
+                Cancel
+            </button>
+        </div>
+    </form>
+
+    <p id="cardCount" aria-live="polite">0 cards</p>
+
+    <section id="cardList" aria-label="Flashcards">
+        <!-- Cards are rendered here -->
+    </section>
+</main>
+
+
+<!-- Accessible modal -->
+<div
+    class="modal"
+    id="deckModal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modalTitle"
+    aria-describedby="modalDescription"
+    aria-hidden="true"
+    hidden
+>
+    <div class="modal-content">
+        <h2 id="modalTitle">Create deck</h2>
+
+        <p id="modalDescription">
+            Enter a name for your flashcard deck.
+        </p>
+
+        <form id="deckForm">
+            <label for="deckName">Deck name</label>
+            <input
+                type="text"
+                id="deckName"
+                name="deckName"
+                maxlength="60"
+                required
+            >
+
+            <p id="deckError" role="alert"></p>
+
+            <div class="modal-actions">
+                <button type="button" id="cancelDeck">
+                    Cancel
+                </button>
+                <button type="submit" id="saveDeck">
+                    Save deck
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

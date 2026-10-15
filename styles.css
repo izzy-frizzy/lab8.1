@@ -1,0 +1,509 @@
+
+/* =========================
+   CSS Variables
+========================= */
+:root {
+    color-scheme: light dark;
+
+    --primary-color: #4f46e5;
+    --background-color: #f5f7fb;
+    --surface-color: #ffffff;
+    --text-color: #1f2937;
+    --muted-color: #6b7280;
+    --border-color: #e5e7eb;
+    --focus-color: #2563eb;
+
+    --spacing: 16px;
+    --border-radius: 12px;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+/* =========================
+   Reset and Base Styles
+========================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+/* =========================
+   Responsive Grid Layout
+========================= */
+.app-container {
+    display: grid;
+
+    /* Fixed sidebar, fluid main */
+    grid-template-columns: 250px minmax(0, 1fr);
+
+    grid-template-rows: auto minmax(0, 1fr) auto;
+
+    grid-template-areas:
+        "header header"
+        "sidebar main"
+        "footer footer";
+
+    gap: var(--spacing);
+    padding: var(--spacing);
+    min-height: 100vh;
+}
+
+/* =========================
+   Header
+========================= */
+.header {
+    grid-area: header;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--spacing);
+
+    padding: var(--spacing);
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+}
+
+.header h1 {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+}
+
+/* =========================
+   Sidebar
+========================= */
+.sidebar {
+    grid-area: sidebar;
+    min-width: 0;
+
+    padding: var(--spacing);
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+}
+
+.deck-list {
+    list-style: none;
+    margin-top: 12px;
+}
+
+.deck-list li {
+    margin-bottom: 8px;
+}
+
+.deck-list a {
+    display: block;
+    padding: 10px;
+    color: var(--text-color);
+    text-decoration: none;
+    border-radius: 8px;
+}
+
+/* =========================
+   Main Content
+========================= */
+.main-content {
+    grid-area: main;
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+
+    padding: 24px;
+}
+
+.main-content h2 {
+    text-align: center;
+}
+
+/* Flashcard */
+.flashcard {
+    width: 100%;
+    max-width: 550px;
+    min-height: 280px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+
+    padding: 32px;
+    text-align: center;
+
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+.card-label {
+    color: var(--muted-color);
+    font-size: 0.9rem;
+}
+
+/* =========================
+   Buttons and Links
+========================= */
+button {
+    padding: 10px 16px;
+    font: inherit;
+    color: var(--text-color);
+    background: var(--surface-color);
+
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.add-button,
+.reveal-button {
+    color: #ffffff;
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.card-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+/* Hover states */
+button:hover {
+    filter: brightness(0.95);
+}
+
+.deck-list a:hover {
+    color: var(--primary-color);
+    background: var(--background-color);
+}
+
+/* Accessible keyboard focus */
+button:focus-visible,
+a:focus-visible {
+    outline: 3px solid var(--focus-color);
+    outline-offset: 3px;
+}
+
+/* Disabled buttons */
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* =========================
+   Footer
+========================= */
+.footer {
+    grid-area: footer;
+    padding: var(--spacing);
+    text-align: center;
+    color: var(--muted-color);
+    font-size: 0.9rem;
+}
+
+/* =========================
+   Dark Mode
+========================= */
+@media (prefers-color-scheme: dark) {
+    :root {
+        color-scheme: dark;
+
+        --primary-color: #818cf8;
+        --background-color: #111827;
+        --surface-color: #1f2937;
+        --text-color: #f9fafb;
+        --muted-color: #9ca3af;
+        --border-color: #374151;
+        --focus-color: #93c5fd;
+
+        --shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .add-button,
+    .reveal-button {
+        color: #111827;
+    }
+
+    button:hover {
+        filter: brightness(1.15);
+    }
+
+    .deck-list a:hover {
+        background: #374151;
+    }
+}
+
+/* =========================
+   Tablet and Mobile
+========================= */
+@media (max-width: 700px) {
+    .app-container {
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: auto auto minmax(0, 1fr) auto;
+
+        grid-template-areas:
+            "header"
+            "sidebar"
+            "main"
+            "footer";
+    }
+
+    .header {
+        flex-wrap: wrap;
+    }
+
+    .sidebar {
+        padding: 12px;
+    }
+
+    .deck-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .deck-list li {
+        margin: 0;
+    }
+
+    .main-content {
+        padding: 12px 0;
+    }
+
+    .flashcard {
+        min-height: 240px;
+        padding: 24px;
+    }
+}
+
+/* Accessible modal overlay */
+.modal[hidden] {
+    display: none;
+}
+
+.modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+
+    display: grid;
+    place-items: center;
+
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.6);
+    overflow-y: auto;
+}
+
+.modal-content {
+    width: 100%;
+    max-width: 420px;
+    padding: 24px;
+
+    background: var(--surface-color);
+    color: var(--text-color);
+
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+.modal-content h2 {
+    margin-bottom: 8px;
+}
+
+.modal-content p {
+    margin-bottom: 16px;
+}
+
+#deckForm label {
+    display: block;
+    margin-bottom: 6px;
+}
+
+#deckName {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 12px;
+
+    font: inherit;
+    color: var(--text-color);
+    background: var(--background-color);
+
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+#deckError {
+    color: #dc2626;
+}
+
+.deck-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 8px;
+}
+
+.deck-item a {
+    flex: 1;
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.deck-item button {
+    padding: 6px 8px;
+    font-size: 0.85rem;
+}
+
+.deck-item.selected a {
+    background: var(--background-color);
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+    outline: 3px solid var(--focus-color);
+    outline-offset: 3px;
+}
+
+/* 3D flip container */
+.card {
+    width: 100%;
+    max-width: 550px;
+    min-height: 260px;
+    perspective: 1000px;
+}
+
+/* Rotating element */
+.card-inner {
+    position: relative;
+    width: 100%;
+    min-height: 260px;
+    transform-style: preserve-3d;
+    transition: transform 0.6s ease;
+}
+
+/* Flip when JavaScript adds the class */
+.card.is-flipped .card-inner {
+    transform: rotateY(180deg);
+}
+
+/* Both sides */
+.card-face {
+    position: absolute;
+    inset: 0;
+    min-height: 260px;
+    padding: 28px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+
+    text-align: center;
+    overflow-wrap: anywhere;
+
+    background: var(--surface-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+/* Back starts rotated */
+.card-back {
+    transform: rotateY(180deg);
+}
+
+.card-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+/* Card editor */
+.card-editor {
+    width: 100%;
+    max-width: 550px;
+    display: grid;
+    gap: 12px;
+}
+
+.card-editor label {
+    display: block;
+    margin-bottom: 4px;
+}
+
+.card-editor input,
+.card-editor textarea {
+    width: 100%;
+    padding: 10px;
+    font: inherit;
+    color: var(--text-color);
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+}
+
+.card-editor textarea {
+    min-height: 90px;
+    resize: vertical;
+}
+
+.card-editor [hidden] {
+    display: none;
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    .card-inner {
+        transition: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .modal-content {
+        padding: 18px;
+    }
+}
+
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
