@@ -8,14 +8,15 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+<a class="skip-link" href="#card-grid">Skip to cards</a>
 <div class="app">
- <header class="app-header">
-  <h1 class="app-title">Flashcards</h1>
-  <div class="app-actions">
-    <button class="btn" type="button" data-action="study">Study</button>
-    <button class="btn btn--primary" type="button" data-action="new-card">New card</button>
-  </div>
-</header>
+  <header class="app-header">
+    <h1 class="app-title">Flashcards</h1>
+    <div class="app-actions">
+      <button class="btn" type="button" data-action="study">Study</button>
+      <button class="btn btn--primary" type="button" data-action="new-card">New card</button>
+    </div>
+  </header>
 
   <aside class="sidebar" aria-label="Decks">
     <h2 class="sidebar-title">Decks</h2>
@@ -24,15 +25,20 @@
 
   <main class="main">
     <div class="main-head">
-      <h2 class="deck-name" id="deck-name"></h2>
-      <p class="deck-meta" id="deck-meta"></p>
+      <h2 class="deck-name" id="deck-name" tabindex="-1"></h2>
+      <p class="deck-meta" id="deck-meta" aria-live="polite"></p>
     </div>
-    <section class="card-grid" id="card-grid" aria-label="Cards"></section>
+    <div class="search" role="search">
+      <input type="search" id="search" placeholder="Search cards" aria-label="Search cards in this deck" autocomplete="off">
+    </div>
+    <section class="card-grid" id="card-grid" aria-label="Cards" tabindex="-1"></section>
   </main>
 
   <footer class="app-footer">Click a card to flip it.</footer>
 </div>
 
+<div id="announcer" class="sr-only" role="status" aria-live="polite"></div>
+<p id="flip-hint" class="sr-only">Press Enter or Space to flip between question and answer.</p>
 <dialog id="card-dialog" aria-labelledby="dialog-title">
   <form id="card-form">
     <h2 class="dialog-title" id="dialog-title">New card</h2>
